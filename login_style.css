@@ -1,0 +1,653 @@
+/* ==========================================
+   LIQUID GLASS LOGIN
+   iOS 26 / HyperOS 4 Inspired
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: #ffffff;
+    --black: #202236;
+    --blue: #8bd5ff;
+    --purple: #c5a4ff;
+    --pink: #ffb9e8;
+}
+
+/* ==========================================
+   FONDO ANIMADO
+   ========================================== */
+
+body {
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+    color: var(--black);
+
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(171, 204, 255, 0.85),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(215, 181, 255, 0.8),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(255, 193, 231, 0.7),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #edf4ff,
+            #f8efff,
+            #ffffff
+        );
+
+    background-size: 200% 200%;
+
+    animation: backgroundMove 14s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 60%;
+    }
+
+    100% {
+        background-position: 30% 100%;
+    }
+}
+
+/* ==========================================
+   ILUMINACIÓN AMBIENTAL
+   ========================================== */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: -50%;
+
+    z-index: 0;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 30% 40%,
+            rgba(125, 190, 255, 0.4),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 75% 60%,
+            rgba(200, 145, 255, 0.35),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(255, 255, 255, 0.95),
+            transparent 30%
+        );
+
+    filter: blur(55px);
+
+    animation: ambientLight 18s ease-in-out infinite alternate;
+}
+
+@keyframes ambientLight {
+    0% {
+        transform: translate(-5%, -3%) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translate(5%, 4%) rotate(10deg) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-3%, 7%) rotate(-8deg) scale(1.05);
+    }
+}
+
+/* ==========================================
+   ESTRUCTURA
+   ========================================== */
+
+.gradient-custom {
+    min-height: 100vh;
+
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 35px 18px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.col-md-8 {
+    width: 100%;
+    max-width: 650px;
+}
+
+.col-lg-6 {
+    width: 100%;
+}
+
+.col-xl-5 {
+    width: 100%;
+}
+
+/* ==========================================
+   TARJETA PRINCIPAL LIQUID GLASS
+   ========================================== */
+
+.gradient-custom .card {
+    position: relative;
+
+    width: 100%;
+
+    border-radius: 38px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.82),
+            rgba(255, 255, 255, 0.42) 45%,
+            rgba(220, 225, 255, 0.30)
+        );
+
+    backdrop-filter: blur(50px) saturate(200%);
+    -webkit-backdrop-filter: blur(50px) saturate(200%);
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        0 30px 90px rgba(83, 105, 170, 0.15),
+        0 8px 30px rgba(255, 255, 255, 0.8),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -3px 10px rgba(155, 165, 255, 0.13);
+
+    animation: cardAppear 0.9s ease;
+}
+
+/* Reflejo superior */
+
+.gradient-custom .card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -50%;
+
+    width: 200%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        white,
+        rgba(180, 210, 255, 0.9),
+        transparent
+    );
+
+    pointer-events: none;
+}
+
+/* Iluminación interior */
+
+.gradient-custom .card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    top: -240px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(190, 170, 255, 0.25);
+
+    filter: blur(65px);
+
+    pointer-events: none;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   CONTENIDO
+   ========================================== */
+
+.card-body {
+    position: relative;
+    z-index: 2;
+
+    padding: 55px 45px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-md-5 {
+    margin-bottom: 35px;
+}
+
+.mt-md-4 {
+    margin-top: 20px;
+}
+
+.pb-5 {
+    padding-bottom: 30px;
+}
+
+/* ==========================================
+   TÍTULOS
+   ========================================== */
+
+h2 {
+    color: #24263c;
+    font-size: 32px;
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 2px 15px rgba(255, 255, 255, 0.9);
+}
+
+p {
+    color: #7885a5;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.text-white-50 {
+    color: #8290ae;
+}
+
+.mb-2 {
+    margin-bottom: 12px;
+}
+
+.mb-5 {
+    margin-bottom: 35px;
+}
+
+/* ==========================================
+   CAMPOS DE FORMULARIO
+   ========================================== */
+
+.form-outline {
+    position: relative;
+
+    margin-bottom: 28px;
+
+    text-align: left;
+}
+
+/* Inputs */
+
+.form-control {
+    width: 100%;
+    height: 62px;
+
+    padding: 20px 20px 10px;
+
+    border-radius: 19px;
+
+    outline: none;
+
+    color: #292b42;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.72),
+            rgba(255, 255, 255, 0.38)
+        );
+
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    box-shadow:
+        0 8px 25px rgba(100, 120, 180, 0.08),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -2px 5px rgba(170, 180, 255, 0.08);
+
+    transition:
+        all 0.4s ease;
+}
+
+/* Placeholder */
+
+.form-control::placeholder {
+    color: #a2acc2;
+}
+
+/* Focus cristalino */
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.82);
+
+    border-color: rgba(155, 165, 255, 0.8);
+
+    box-shadow:
+        0 0 0 4px rgba(170, 180, 255, 0.13),
+        0 10px 30px rgba(120, 140, 220, 0.15),
+        0 0 30px rgba(170, 170, 255, 0.22),
+        inset 0 2px 4px white;
+}
+
+/* Etiquetas */
+
+.form-label {
+    display: block;
+
+    color: #697895;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    margin: 0 0 9px 5px;
+
+    letter-spacing: 0.4px;
+}
+
+/* ==========================================
+   ENLACES
+   ========================================== */
+
+a {
+    color: #7883c4;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition:
+        color 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: #a17ee9;
+
+    text-shadow:
+        0 0 15px rgba(165, 145, 255, 0.4);
+}
+
+.small {
+    font-size: 13px;
+}
+
+.pb-lg-2 {
+    padding-bottom: 10px;
+}
+
+/* ==========================================
+   BOTÓN PRINCIPAL
+   ========================================== */
+
+.btn {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 58px;
+
+    border-radius: 19px;
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
+}
+
+.btn-outline-light {
+    color: white;
+
+    background: linear-gradient(
+        120deg,
+        #779eff,
+        #a78bfa,
+        #bd91ec
+    );
+
+    box-shadow:
+        0 10px 30px rgba(137, 135, 240, 0.3),
+        inset 0 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* Reflejo del botón */
+
+.btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: -100%;
+    left: -100%;
+
+    width: 70%;
+    height: 300%;
+
+    transform: rotate(35deg);
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+    );
+
+    transition: left 0.7s ease;
+}
+
+.btn:hover::before {
+    left: 150%;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 40px rgba(126, 137, 255, 0.4),
+        0 0 30px rgba(173, 151, 255, 0.4),
+        inset 0 1px 4px white;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* ==========================================
+   REDES SOCIALES
+   ========================================== */
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.mt-4 {
+    margin-top: 25px;
+}
+
+.pt-1 {
+    padding-top: 5px;
+}
+
+.d-flex a {
+
+    background-color: white;
+
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow:
+        0 8px 20px rgba(90, 110, 160, 0.08),
+        inset 0 1px 3px white;
+
+    transition: all 0.35s ease;
+
+}
+
+.d-flex a:hover {
+    transform: translateY(-5px) scale(1.08);
+
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    background: linear-gradient(
+        135deg,
+        #81baff,
+        #b49aff
+    );
+
+    box-shadow:
+        0 10px 25px rgba(130, 140, 230, 0.3),
+        0 0 25px rgba(180, 165, 255, 0.3);
+}
+
+/* ==========================================
+   REGISTRO
+   ========================================== */
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.fw-bold {
+    font-weight: 800;
+}
+
+/* Separación inferior */
+
+.card-body > div:last-child {
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    .gradient-custom {
+        padding: 20px 13px;
+    }
+
+    .gradient-custom .card {
+        border-radius: 30px;
+    }
+
+    .card-body {
+        padding: 40px 23px;
+    }
+
+    h2 {
+        font-size: 27px;
+    }
+
+    .form-control {
+        height: 58px;
+    }
+
+    .btn {
+        min-height: 55px;
+    }
+
+    .d-flex a {
+        width: 43px;
+        height: 43px;
+    }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

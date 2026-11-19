@@ -1,0 +1,355 @@
+/* ==========================================
+   LIQUID GLASS UNAVAILABLE / WIP UI (nd.css)
+   iOS 26 / HyperOS 4 Inspired
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --white: #ffffff;
+    --black: #202236;
+
+    --blue: #8bd5ff;
+    --purple: #c5a4ff;
+    --pink: #ffb9e8;
+
+    --glass: rgba(255, 255, 255, 0.42);
+    --glass-border: rgba(255, 255, 255, 0.85);
+}
+
+/* ==========================================
+   FONDO ANIMADO Y LUCES AMBIENTALES
+   ========================================== */
+
+body {
+    min-height: 100vh;
+    padding: 25px 18px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--black);
+    overflow-x: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 15% 15%, rgba(171, 204, 255, 0.85), transparent 38%),
+        radial-gradient(circle at 85% 20%, rgba(215, 181, 255, 0.8), transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(255, 193, 231, 0.75), transparent 45%),
+        linear-gradient(135deg, #ffffff, #edf4ff, #f8efff, #ffffff);
+
+    background-size: 200% 200%;
+    animation: backgroundMove 14s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 60%; }
+    100% { background-position: 30% 100%; }
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: -1;
+    pointer-events: none;
+
+    background:
+        radial-gradient(circle at 30% 40%, rgba(125, 190, 255, 0.4), transparent 25%),
+        radial-gradient(circle at 75% 60%, rgba(200, 145, 255, 0.35), transparent 28%),
+        radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.95), transparent 30%);
+
+    filter: blur(55px);
+    animation: ambientLight 18s ease-in-out infinite alternate;
+}
+
+@keyframes ambientLight {
+    0% { transform: translate(-5%, -3%) rotate(0deg) scale(1); }
+    50% { transform: translate(5%, 4%) rotate(10deg) scale(1.1); }
+    100% { transform: translate(-3%, 7%) rotate(-8deg) scale(1.05); }
+}
+
+/* ==========================================
+   TARJETA PRINCIPAL (.card1)
+   ========================================== */
+
+.card1 {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    padding: 48px 35px 42px;
+    border-radius: 38px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.85),
+        rgba(255, 255, 255, 0.40) 45%,
+        rgba(220, 225, 255, 0.34)
+    );
+
+    backdrop-filter: blur(45px) saturate(200%);
+    -webkit-backdrop-filter: blur(45px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    box-shadow:
+        0 25px 80px rgba(83, 105, 170, 0.14),
+        0 8px 25px rgba(255, 255, 255, 0.8),
+        inset 0 2px 4px white,
+        inset 0 -3px 8px rgba(155, 165, 255, 0.13);
+
+    overflow: hidden;
+    animation: cardAppear 0.75s cubic-bezier(.2,.8,.2,1);
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s ease;
+}
+
+/* Reflejo superior */
+.card1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        white,
+        rgba(180, 210, 255, 0.9),
+        transparent
+    );
+    pointer-events: none;
+}
+
+/* Halo de luz violeta interior */
+.card1::after {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    top: -190px;
+    right: -130px;
+    border-radius: 50%;
+    background: rgba(190, 170, 255, 0.25);
+    filter: blur(65px);
+    pointer-events: none;
+}
+
+.card1:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 30px 90px rgba(83, 105, 170, 0.18),
+        0 10px 30px rgba(255, 255, 255, 0.85),
+        inset 0 2px 4px white,
+        inset 0 -3px 8px rgba(155, 165, 255, 0.18);
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   TÍTULO (h1) Y SUBTÍTULO CÁPSULA (p)
+   ========================================== */
+
+.card1 h1 {
+    position: relative;
+    z-index: 2;
+
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 850;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 14px;
+
+    background: linear-gradient(120deg, #25283e 20%, #5c639c 65%, #8c80d8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    filter: drop-shadow(0 2px 12px rgba(255, 255, 255, 0.9));
+}
+
+.card1 p {
+    position: relative;
+    z-index: 2;
+
+    display: inline-block;
+    padding: 9px 22px;
+    margin-bottom: 26px;
+    border-radius: 999px;
+
+    font-size: 14px;
+    font-weight: 750;
+    letter-spacing: 0.4px;
+    color: #5b658a;
+
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    box-shadow:
+        0 6px 18px rgba(90, 110, 160, 0.08),
+        inset 0 1px 3px white;
+}
+
+/* ==========================================
+   IMAGEN (.img) CON FLOTACIÓN SUAVE
+   ========================================== */
+
+.img {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 24px;
+
+    filter: drop-shadow(0 18px 25px rgba(70, 85, 135, 0.16));
+    animation: floatImage 4.5s ease-in-out infinite;
+    transition: transform 0.45s ease, filter 0.45s ease;
+}
+
+.card1:hover .img {
+    filter: drop-shadow(0 22px 32px rgba(100, 120, 200, 0.24));
+}
+
+@keyframes floatImage {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-9px);
+    }
+}
+
+/* ==========================================
+   SELECCIÓN DE TEXTO
+   ========================================== */
+
+::selection {
+    background: rgba(164, 158, 255, 0.35);
+    color: #292746;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 650px) {
+    body {
+        padding: 18px 14px;
+    }
+
+    .card1 {
+        padding: 36px 22px 32px;
+        border-radius: 30px;
+    }
+
+    .card1 p {
+        font-size: 13px;
+        padding: 8px 18px;
+        margin-bottom: 22px;
+    }
+
+    .img {
+        max-width: 310px;
+    }
+}
+
+@media (max-width: 380px) {
+    .card1 {
+        padding: 30px 16px 26px;
+        border-radius: 26px;
+    }
+}
+
+/* ==========================================
+   REDUCIR MOVIMIENTO
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+.boton-inicio {
+    position: relative;
+    align-self: flex-start;
+    margin: 0 auto 22px;
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 22px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #41445e;
+    font-size: 14px;
+    font-weight: 750;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.85),
+        rgba(255, 255, 255, 0.45)
+    );
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    box-shadow:
+        0 10px 25px rgba(83, 105, 170, 0.10),
+        inset 0 2px 4px white;
+
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease, color 0.3s ease;
+}
+
+.boton-inicio svg {
+    color: #8c80d8;
+    transition: transform 0.35s ease;
+}
+
+.boton-inicio:hover {
+    transform: translateY(-3px);
+    color: #202236;
+    box-shadow:
+        0 15px 35px rgba(104, 133, 210, 0.18),
+        0 0 20px rgba(164, 185, 255, 0.3),
+        inset 0 2px 4px white;
+}
+
+.boton-inicio:hover svg {
+    transform: translateX(-3px) scale(1.08);
+}
+
+.boton-inicio:active {
+    transform: scale(0.96);
+}
